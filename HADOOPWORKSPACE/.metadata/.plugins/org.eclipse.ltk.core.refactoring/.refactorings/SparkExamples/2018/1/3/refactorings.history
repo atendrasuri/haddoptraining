@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SparkExamples/SparkWareHouse&apos; to &apos;spark-warehouse&apos;" description="Rename resource &apos;SparkWareHouse&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="SparkWareHouse" name="spark-warehouse" stamp="1516000335194" updateReferences="true"/>
+</session>

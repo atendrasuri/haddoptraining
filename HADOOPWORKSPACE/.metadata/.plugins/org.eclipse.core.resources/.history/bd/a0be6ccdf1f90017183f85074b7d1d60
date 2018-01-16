@@ -1,0 +1,70 @@
+package com.sapient;
+
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.broadcast.Broadcast;
+import org.apache.spark.util.LongAccumulator;
+
+import scala.Tuple2;
+
+
+public class Solution {
+
+	public static void main(String args[])throws Exception
+	{
+
+		SparkConf sparkConf = new SparkConf().setAppName("test").setMaster(
+				"local");
+		JavaSparkContext jsc = new JavaSparkContext(sparkConf);
+		JavaRDD<String> custs = jsc
+				.textFile("C:\\BigData\\custs");
+		JavaRDD<String> txns = jsc
+				.textFile("C:\\BigData\\txns");
+         System.out.println("hello");
+         JavaRDD<String> txns1 = txns.flatMap(s -> Arrays.asList(s.split("/n")).iterator());
+         JavaRDD<String> custs1 = custs.flatMap(s -> Arrays.asList(s.split("/n")).iterator());
+		
+         JavaRDD<String> reRDD1= custs1.repartition(2);
+        JavaRDD<String> reRDD2= txns1.repartition(2);
+		
+		
+		
+		JavaPairRDD<Integer, Double> txns2 = reRDD2.mapToPair(s->new Tuple2<>(Integer.parseInt(s.split(",")[2]),Double.parseDouble(s.split(",")[3])));
+		
+		JavaPairRDD<Integer, Double> txns3= txns2.reduceByKey((i1,i2)->i1+i2);
+		System.out.println("Hello Output");
+		System.out.println(txns3.collect().toString());
+		
+		
+		
+		JavaPairRDD<Integer, String> custs3= reRDD1.mapToPair(s->new Tuple2<>(Integer.parseInt(s.split(",")[0]), s.split(",")[1]));
+		
+		System.out.println(custs3.collect().toString());
+		
+
+		JavaPairRDD<Integer, Tuple2<String, Double>> result= custs3.join(txns3);
+		
+		System.out.println(result.collect().toString());
+		
+		
+
+		/*for(String c:custs1.collect())
+		{
+			System.out.println(c);
+		}
+
+		for(String t:txns.collect())
+		{
+			System.out.println(t);
+		}
+*/
+	}
+}

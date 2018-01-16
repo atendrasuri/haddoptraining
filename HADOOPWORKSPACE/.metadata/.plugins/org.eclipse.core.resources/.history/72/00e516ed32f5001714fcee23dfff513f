@@ -1,0 +1,33 @@
+
+package region_earthquak;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
+
+
+public class RegionMapper extends Mapper<DoubleWritable, Text, Text, DoubleWritable> {
+ private Text region = new Text();
+ 
+ private final static DoubleWritable magnitude = new DoubleWritable(1);
+ 
+  
+ @Override
+ public void map(DoubleWritable key, Text value,
+   Context contex) throws IOException, InterruptedException {
+  // Break line into words for processing
+	 if(value.toString().startsWith("src")){
+		 
+      region.set(value.toString().split(",")[11]);
+      magnitude.set(Double.parseDouble(value.toString().split(",")[8]));
+       StringTokenizer list = new StringTokenizer(value.toString());
+     
+         contex.write(region, magnitude);
+	 }
+  
+ }
+}

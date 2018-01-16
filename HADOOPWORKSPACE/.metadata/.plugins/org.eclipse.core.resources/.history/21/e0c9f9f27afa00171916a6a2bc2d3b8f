@@ -1,0 +1,12 @@
+package com.sapient;
+
+public class Customer {
+
+public  int id;
+public String name;
+
+public Customer() {
+	// TODO Auto-generated constructor stub
+}
+	
+}

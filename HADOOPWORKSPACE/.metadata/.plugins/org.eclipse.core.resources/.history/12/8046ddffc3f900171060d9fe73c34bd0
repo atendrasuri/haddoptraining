@@ -1,0 +1,58 @@
+/**
+ * 
+ */
+package com.sapient.spark;
+
+import java.util.Arrays;
+
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.sql.SparkSession;
+
+
+
+/**
+ * @author aku375
+ *
+ */
+public class WordCount {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+	SparkSession session = SparkSession.builder().master("local[*]").appName("Captain Word Count").getOrCreate();
+		
+	 //   jsc.setCheckpointDir("C:\\checkpoint2");
+	    
+	    JavaRDD<String> lines = session.read().textFile(args[0]).javaRDD();
+
+	    JavaRDD<String> words = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
+	    
+	    //words.persist(StorageLevel.MEMORY_AND_DISK_SER_2());
+	    
+	    System.out.println("::"+words.collect().toString());
+	    
+	    /*JavaRDD<String> fltwords = words.filter( s -> s.contains("hadoop"));
+	    JavaRDD<String> reRDD= fltwords.repartition(4);
+	    */
+	    //System.out.println(reRDD.count());
+
+	  /* JavaPairRDD<String, Integer> ones = reRDD.mapToPair(s -> new Tuple2<>(s, 1));
+	    
+	    ones.checkpoint();
+
+	    JavaPairRDD<String, Integer> counts = ones.reduceByKey((i1, i2) -> i1 + i2);
+	    counts.saveAsTextFile("C:\\spark_out1");
+	*/
+//	    List<Tuple2<String, Integer>> output = counts.collect();
+//	    for (Tuple2<?,?> tuple : output) {
+//	      System.out.println(tuple._1() + ": " + tuple._2());
+//	    }
+//	    Thread.sleep(3447774);
+//	    spark.stop();
+	  }
+
+	
+
+}

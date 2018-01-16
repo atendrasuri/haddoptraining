@@ -1,0 +1,29 @@
+package region_earthquak;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+ 
+ 
+ 
+public class RegionReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> {
+  
+ private DoubleWritable maxmagnitude = new DoubleWritable(0);
+  
+ @Override
+ public void reduce(Text key, Iterable<DoubleWritable> values, Context context)
+            throws IOException, InterruptedException {
+  //int magni = 0;
+  //System.out.println(values.toString());
+  Iterator<DoubleWritable> it=values.iterator();
+  Double magnitude= 0d;
+  while (it.hasNext()) {
+	  maxmagnitude=maxmagnitude.get()>it.next().get()?maxmagnitude.get():it.next().get();
+  }
+ 
+  context.write(key, maxmagnitude);
+ }
+}

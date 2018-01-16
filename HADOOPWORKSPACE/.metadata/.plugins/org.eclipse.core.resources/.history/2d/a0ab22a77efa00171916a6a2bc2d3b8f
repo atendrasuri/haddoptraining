@@ -1,0 +1,52 @@
+package com.sapient;
+
+import java.util.Collections;
+
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.network.protocol.Encoders;
+import org.apache.spark.sql.AnalysisException;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoder;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
+
+import com.sapient.JavaSparkSQLExample.Person;
+
+public class SparkSql2 {
+
+	public static void main(String[] args) throws AnalysisException {
+
+		SparkSession spark = SparkSession.builder().master("local[*]").appName("Java Spark SQL basic example")
+				.getOrCreate();
+
+		JavaRDD<Customer> peopleRDD = spark.read().textFile("C:\\BigData\\custs").javaRDD().map(line -> {
+			String[] parts = line.split(",");
+			Customer person = new Customer();
+			person.name = parts[1] + " " + parts[2];
+			person.id = Integer.parseInt(parts[0]);
+			return person;
+		});
+		
+		Dataset<Row> peopleDF = spark.createDataFrame(peopleRDD, Customer.class);
+		peopleDF.createOrReplaceTempView("cust1");
+
+		
+
+		// Encoder<Customer>encoder =
+		// org.apache.spark.sql.Encoders.bean(Customer.class);
+		// Dataset<Customer> peopleDF =
+		// spark.createDataset(Collections.singletonList(new
+		// Customer("Atender",1233)),encoder);
+		//
+		// peopleDF.createOrReplaceTempView("people");
+		//
+		// Dataset<Row> teenagersDF = spark.sql("SELECT * FROM people");
+		// teenagersDF.show();
+		//
+		// spark.stop();
+
+	}
+
+}

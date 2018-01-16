@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.Partitioner"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.Text"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.DoubleWritable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.conf.Configuration"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.SparkSession"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+<fullyQualifiedTypeName name="org.apache.parquet.hadoop.mapred.MapredParquetOutputCommitter"/>
+<fullyQualifiedTypeName name="scala.Tuple2"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.util.Base64.Encoder"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.Encoder"/>
+<fullyQualifiedTypeName name="org.apache.spark.network.protocol.Encoders"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.Encoders"/>
+<fullyQualifiedTypeName name="com.sapient.Customer"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="org.apache.spark.sql.Dataset"/>
+</qualifiedTypeNameHistroy>

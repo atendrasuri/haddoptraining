@@ -1,0 +1,7 @@
+package com.sapient;
+
+import java.io.Serializable;
+
+public class Stock implements Serializable {
+
+}
